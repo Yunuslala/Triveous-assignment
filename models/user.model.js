@@ -33,7 +33,11 @@ const UserSchema=mongoose.Schema({
           },
           message: props => `${props.value} is not a valid 10-digit mobile number!`
         }
-      }
+      },
+      isRemoved:{
+        type:Boolean,
+        default:false
+    },
 })
 UserSchema.index({ email: 1 });
 const UserMOdel=mongoose.model('users',UserSchema);
