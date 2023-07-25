@@ -13,7 +13,7 @@ const cartSchema=mongoose.Schema({
     },
     status:{
         type:String,
-        default:["Added in cart","Placed for order"]
+        default:"Added in cart"
     },
     isRemoved:{
         type:Boolean,
@@ -24,8 +24,8 @@ const cartSchema=mongoose.Schema({
         default:1
     }
 });
-
-const CartModel=mongoose.model("Cart",cartSchema);
+cartSchema.index({productId:1})
+const CartModel=mongoose.model("Carts",cartSchema);
 
 module.exports={
     CartModel

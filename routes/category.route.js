@@ -3,6 +3,8 @@ const categoryRoute=express.Router();
 const {AddCategory,AllCategories}=require("../controllers/category.controller")
 const {VendorAuthorization}=require("../middlewares/authorization");
 const {Authentication}=require("../middlewares/authentication");
+const { body, validationResult } = require("express-validator");
+
 categoryRoute.use(Authentication);
 categoryRoute.use(VendorAuthorization)
 categoryRoute.post('/Add',AddCategory);
