@@ -23,4 +23,10 @@ const cartSchema=mongoose.Schema({
         type:Number,
         default:1
     }
-})
+});
+
+const CartModel=mongoose.model("Cart",cartSchema);
+
+module.exports={
+    CartModel
+}

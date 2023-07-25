@@ -7,14 +7,7 @@ const UserSchema=mongoose.Schema({
       email: {
         type: String,
         required: true,
-        unique: true,
-        validate: {
-          validator: (value) => {
-            // Custom email validation logic
-            return /^\S+@\S+\.\S+$/.test(value);
-          },
-          message: 'Invalid email format',
-        }
+        unique: true
       },
       password: {
         type: String,
@@ -25,16 +18,10 @@ const UserSchema=mongoose.Schema({
         default:"user"
       },
       mobileNumber: {
-        type: String,
-        required: true,
-        validate: {
-          validator: function (value) {
-            return /^[0-9]{10}$/.test(value);
-          },
-          message: props => `${props.value} is not a valid 10-digit mobile number!`
-        }
+        type:Number,
+        required: true
       },
-      isRemoved:{
+      isBlocked:{
         type:Boolean,
         default:false
     },

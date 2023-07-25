@@ -9,7 +9,7 @@ const categorySchema=mongoose.Schema({
 });
 
 
-const categoryModel=mongoose.model("category",categorySchema);
+const categoryModel=mongoose.model("categories",categorySchema);
 module.exports={
     categoryModel
 }
