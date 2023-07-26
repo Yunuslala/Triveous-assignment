@@ -7,7 +7,10 @@ const { body, validationResult } = require("express-validator");
 
 categoryRoute.use(Authentication);
 categoryRoute.use(VendorAuthorization)
-categoryRoute.post('/Add',AddCategory);
+categoryRoute.post('/Add',
+body('category').notEmpty().withMessage('category is required'),
+
+AddCategory);
 
 categoryRoute.get('/get',AllCategories);
 

@@ -5,6 +5,7 @@ const {UserRoute}=require("./routes/user.route");
 const {ProductRoute}=require("./routes/product.route");
 const { categoryRoute}=require("./routes/category.route");
 const {CartRouter}=require("./routes/cart.route");
+const {AdminRouter}=require("./routes/Admin.route")
 const {OrderRoute}=require("./routes/order.route");
 require("dotenv").config();
 app.use(express.json());
@@ -13,8 +14,9 @@ app.use(express.json());
 app.use("/User",UserRoute);
 app.use("/category",categoryRoute);
 app.use("/Product",ProductRoute);
-app.use('/cart',CartRouter);
-app.use('/Order',OrderRoute)
+app.use('/Cart',CartRouter);
+app.use('/Order',OrderRoute);
+app.use("/admin",AdminRouter);
 
 
 

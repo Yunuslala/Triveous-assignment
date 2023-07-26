@@ -1,5 +1,6 @@
 const { UserMOdel } = require("../models/user.model");
 const bcrypt = require("bcrypt");
+const { body, validationResult } = require("express-validator");
 
 const jwt = require("jsonwebtoken");
 const userSignup = async (req, res) => {
@@ -45,7 +46,8 @@ const userLogin = async (req, res) => {
     }
     const { email, password } = req.body;
     let FindUser = await UserMOdel.find({ email });
-    if (!FindUser) {
+    console.log(FindUser)
+    if (!FindUser.length) {
       res.status(404).send({ msg: "You have not exist go for signup first" });
     } else if (FindUser[0].isBlocked) {
       return res.status(401).send({ msg: "You have been blocked" });

@@ -4,6 +4,10 @@ const { body, validationResult } = require("express-validator");
 const AddCategory=async(req,res)=>{
     try {
         const {category}=req.body;
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+          return res.status(400).send({ errors: errors.array() });
+        }
         console.log(category)
         const CheckExistence=await categoryModel.find({category});
         if(CheckExistence.length!==0){

@@ -6,17 +6,14 @@ const {
   AddToCart,
 } = require("../controllers/cart.controller");
 const CartRouter = express.Router();
-const { body, validationResult } = require("express-validator");
+const { body, validationResult,check } = require("express-validator");
 
 const { Authentication } = require("../middlewares/authentication");
 CartRouter.use(Authentication);
 CartRouter.post(
   "/Post",
-  checl("ProductId")
-    .exists()
-    .withMessage("id is required")
-    .isString()
-    .withMessage("id must be a string"),
+body('productId').exists().withMessage('ProductId is required'),
+  
   AddToCart
 );
 CartRouter.post(

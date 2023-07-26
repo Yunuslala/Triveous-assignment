@@ -8,27 +8,18 @@ const AddToCart = async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(400).send({ errors: errors.array() });
     }
-    const { ProductId, userid } = req.body;
-    const saveToCart = new CartModel({ ProductId, userId: userid });
+    console.log(req.body)
+    const { productId, Userid } = req.body;
+    console.log(productId,Userid)
+    const ExistCartProduct = await CartModel.find({ userId:Userid,productId, status: "Added in cart" });
+    if(ExistCartProduct.length){
+      return res.status(201).send({"msg":"product already exist in your cart"})
+    }
+    const saveToCart = new CartModel({ productId, userId: Userid });
     await saveToCart.save();
-    const CartProduct = await CartModel.aggregate([
-      { $match: { ProductId: ProductId,status:"Added in cart" } },
-      {
-        $lookup: {
-          from: "products",
-          foreignField: "_id",
-          localField: "productId",
-          as: "productDetails",
-        },
-      },
-      { $unwind: "$productDetails" },
-      {
-        $project: {
-          productDetails: 1,
-          quantity: 1,
-        },
-      },
-    ]);
+    const CartProduct = await CartModel.find({ productId, status: "Added in cart" })
+    .populate('productId', 'title price description availability') 
+    .exec();
     console.log("cartproduct",CartProduct)
     res.status(201).send({ msg: "product has been added in cart",CartProduct });
   } catch (error) {
@@ -58,8 +49,8 @@ const UpdateCartProduct = async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(400).send({ errors: errors.array() });
     }
-    const { id, email, userid, role, data } = req.body;
-    const UpdateCart = await CartModel.findByIdAndUpdate({ _id: id }, data);
+    const { id, quantity } = req.body;
+    const UpdateCart = await CartModel.findByIdAndUpdate({ _id: id }, {quantity});
     res
       .status(204)
       .send({ msg: "product has been updated in cart", UpdateCart });
@@ -75,38 +66,24 @@ const GetCartProducts = async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(400).send({ errors: errors.array() });
     }
-    const { userid } = req.body;
-    const AllCartProducts = await CartModel.aggregate([
-      { $match: { userId: userid,status:"Added in cart" } },
-      {
-        $lookup: {
-          from: "products",
-          localField: "productId",
-          foreignField: "_id",
-          as: "productDetails",
-        },
-      },
-      { $unwind: $productDetails },
-      {
-        $lookup: {
-          from: "users",
-          localField: "userId",
-          foreignField: "_id",
-          as: "userDetails",
-        },
-      },
-      { $unwind: $userDetails },
-      {
-        $project: {
-          _id: 0,
-          cartId: "$_id",
-          quantity: "$quantity",
-          productDetails: 1,
-          userDetails: 1,
-        },
-      },
-    ]);
-    res.status(200).send(AllCartProducts);
+    const { Userid } = req.body;
+    console.log(Userid)
+    const AllCartProducts = await CartModel.find({ userId: Userid,
+          status: "Added in cart"
+        }) .populate('productId', 'title price description availability') 
+        .populate('userId',"name email mobileNumber,role")
+        .exec()
+        const modifiedResponse = AllCartProducts.map((cartProduct) => {
+          return {
+            _id: cartProduct._id,
+            productDetails: cartProduct.productId,
+            userDetails: cartProduct.userId,
+            status: cartProduct.status,
+            isRemoved: cartProduct.isRemoved,
+            quantity: cartProduct.quantity,
+          };
+        });
+    res.status(200).send(modifiedResponse);
   } catch (error) {
     console.log("error", error);
     res.status(500).send(error);

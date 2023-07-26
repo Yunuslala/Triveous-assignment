@@ -6,7 +6,6 @@ const Authentication=async(req, res, next) => {
       if(token){
         const decodedToken = jwt.verify(token,process.env.Secret);
         if(decodedToken){
-          console.log(decodedToken);
           req.body.Userid=decodedToken.userId;
           req.body.role=decodedToken.role
           next()
