@@ -17,7 +17,7 @@ const userSignup = async (req, res) => {
     }
     bcrypt.hash(password, 6, async (err, hash) => {
       if (err) {
-        return res.status(500).send({
+        return res.status(409).send({
           error: "Internal server error occurred during the hashing process.",
         });
       } else {
@@ -29,7 +29,7 @@ const userSignup = async (req, res) => {
           mobileNumber,
         });
         await postUser.save();
-        return res.status(201).send({ msg: "signup has been done" });
+        return res.status(201).send({ msg: "signup has been done" ,postUser});
       }
     });
   } catch (error) {

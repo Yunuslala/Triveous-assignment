@@ -10,6 +10,8 @@ const {OrderRoute}=require("./routes/order.route");
 require("dotenv").config();
 app.use(express.json());
 const rateLimit = require('express-rate-limit');
+const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerUI=require("swagger-ui-express");
 
 const userLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, 
@@ -46,6 +48,7 @@ const adminLimiter = rateLimit({
   max: 10, 
   message: 'Too many requests from this IP for Admin routes, please try again later.',
 });
+
 
 app.use("/User",userLimiter,UserRoute);
 app.use("/category",categoryLimiter,categoryRoute);

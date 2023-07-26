@@ -11,7 +11,7 @@ const AddCategory=async(req,res)=>{
         console.log(category)
         const CheckExistence=await categoryModel.find({category});
         if(CheckExistence.length!==0){
-           return res.status(201).send({"msg":"category already exist"})
+           return res.status(200).send({"msg":"category already exist"})
         }
         const PostCategory=new categoryModel({category});
         await PostCategory.save()

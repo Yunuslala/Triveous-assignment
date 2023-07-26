@@ -9,9 +9,9 @@ const {
   const AdminRouter=express.Router();
 AdminRouter.use(Authentication);
 AdminRouter.use(AdminAuthorization)
-  AdminRouter.post('/user/block',blockUser);
-  AdminRouter.post('/user/delete',deleteUser)
-  AdminRouter.post('/product/delete',DeleteProduct)
+  AdminRouter.patch('/user/block/:id',blockUser);
+  AdminRouter.delete('/user/delete/:userId',deleteUser)
+  AdminRouter.delete('/product/delete/:productId',DeleteProduct)
 
 
   module.exports={

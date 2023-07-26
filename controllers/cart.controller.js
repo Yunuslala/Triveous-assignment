@@ -13,7 +13,7 @@ const AddToCart = async (req, res) => {
     console.log(productId,Userid)
     const ExistCartProduct = await CartModel.find({ userId:Userid,productId, status: "Added in cart" });
     if(ExistCartProduct.length){
-      return res.status(201).send({"msg":"product already exist in your cart"})
+      return res.status(204).send({"msg":"product already exist in your cart"})
     }
     const saveToCart = new CartModel({ productId, userId: Userid });
     await saveToCart.save();

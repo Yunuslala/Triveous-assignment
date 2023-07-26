@@ -68,7 +68,7 @@ const RemoveProducts = async (req, res) => {
       { _id: ProductId },
       { availability: true }
     );
-    res.send({ msg: "particular Product has been removed", GetByID });
+    res.status(201).send({ msg: "particular Product has been removed", GetByID });
   } catch (error) {
     console.log("error", error);
     res.status(500).send(error);
@@ -90,7 +90,7 @@ const updateProducts = async (req, res) => {
       );
 
       console.log(GetByID);
-    return  res.send({ msg: "particular Product has been removed", GetByID });
+    return  res.status(201).send({ msg: "particular Product has been removed", GetByID });
     } else if (title) {
       const GetByID = await ProductMOdel.findByIdAndUpdate(
         { _id: productId },
@@ -98,7 +98,7 @@ const updateProducts = async (req, res) => {
       );
 
       console.log(GetByID);
-     return res.send({ msg: "particular Product has been removed", GetByID });
+     return res.status(201).send({ msg: "particular Product has been removed", GetByID });
     } else if (description) {
       const GetByID = await ProductMOdel.findByIdAndUpdate(
         { _id: productId },
@@ -106,7 +106,7 @@ const updateProducts = async (req, res) => {
       );
 
       console.log(GetByID);
-     return  res.send({ msg: "particular Product has been removed", GetByID });
+     return  res.status(201).send({ msg: "particular Product has been removed", GetByID });
     } else if (category) {
       const GetByID = await ProductMOdel.findByIdAndUpdate(
         { _id: productId },
@@ -114,7 +114,7 @@ const updateProducts = async (req, res) => {
       );
 
       console.log(GetByID);
-    return  res.send({ msg: "particular Product has been removed", GetByID });
+    return  res.status(201).send({ msg: "particular Product has been removed", GetByID });
     }
   } catch (error) {
     console.log("error", error);
