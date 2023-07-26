@@ -9,14 +9,50 @@ const {AdminRouter}=require("./routes/Admin.route")
 const {OrderRoute}=require("./routes/order.route");
 require("dotenv").config();
 app.use(express.json());
+const rateLimit = require('express-rate-limit');
 
+const userLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, 
+  max: 100, // Maximum requests per IP in the specified window
+  message: 'Too many requests from this IP for User routes, please try again later.',
+});
 
-app.use("/User",UserRoute);
-app.use("/category",categoryRoute);
-app.use("/Product",ProductRoute);
-app.use('/Cart',CartRouter);
-app.use('/Order',OrderRoute);
-app.use("/admin",AdminRouter);
+const categoryLimiter = rateLimit({
+  windowMs: 10 * 60 * 1000, 
+  max: 100, 
+  message: 'Too many requests from this IP for Category routes, please try again later.',
+});
+
+const productLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, 
+  max: 300, 
+  message: 'Too many requests from this IP for Product routes, please try again later.',
+});
+
+const cartLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, 
+  max: 200, 
+  message: 'Too many requests from this IP for Cart routes, please try again later.',
+});
+
+const orderLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, 
+  max: 200, 
+  message: 'Too many requests from this IP for Order routes, please try again later.',
+});
+
+const adminLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, 
+  max: 10, 
+  message: 'Too many requests from this IP for Admin routes, please try again later.',
+});
+
+app.use("/User",userLimiter,UserRoute);
+app.use("/category",categoryLimiter,categoryRoute);
+app.use("/Product",productLimiter,ProductRoute);
+app.use('/Cart',cartLimiter,CartRouter);
+app.use('/Order',orderLimiter,OrderRoute);
+app.use("/admin",adminLimiter,AdminRouter);
 
 
 
