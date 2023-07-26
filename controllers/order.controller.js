@@ -3,7 +3,7 @@ const {CartModel}=require("../models/cart.model")
 const Orderplaced=async(req,res)=>{
     try {
         const {cartId}=req.body;
-        console.log(cartId)
+        console.log("cartId",cartId)
         const updateInCart=await CartModel.findByIdAndUpdate({_id:cartId},{"status":"placed"});
         const OrderPlaced=new OrderModel({cartId});
         OrderPlaced.save()
