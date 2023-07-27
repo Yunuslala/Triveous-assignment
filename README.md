@@ -29,7 +29,7 @@
         role: (admin Vendor or default user)
     }
     ```
-    - Responses
+    - Response
         - 200 (Ok): `{ msg: "user already exist" }`
         - 201 (ok): `{ msg: "signup has been done" ,postUser}`
         - 400 (missing or Invalid credentails): `{ errors: errors.array() }`
@@ -46,7 +46,7 @@
         password: user_password (6 characters or more) (required)
     }
     ```
-    - Responses
+    - Response
         - 201 (Ok): `{ msg: "You logged in", token }`
         - 404 (account does not exists): `{ msg: "You have not exist go for signup first" }`
          - 400 (missing or Invalid credentails): `{ errors: errors.array() }`
@@ -66,7 +66,7 @@
    }
    - login as Vendor
     ```
- - Responses:
+ - Response:
         - 201 (Ok): `{ msg: "Product has been added" }`
         - 404 (account does not login or Invalid Token): `{"msg":"You are not authorized"} or {{"msg":"You are not authorized as a vendor"}}`
          - 400 (missing or Invalid credentails): `{ errors: errors.array() }`
@@ -87,7 +87,7 @@
     - URL: `https://cloudy-nightgown.cyclic.app/Product/get/:ProductId`
     - Method: GET
     - Parameters: Product Id as params
-    - Responses:
+    - Response:
         - 404 (Not Found): `{ msg: "product is not available" }`
         - 200 (Ok): `{GetByID}`
         - 401 (Token missing): `{"msg":"token must be needed for generating tickets... go for login or signup"}`
@@ -96,7 +96,7 @@
     - URL: `https://cloudy-nightgown.cyclic.app/Product/delete/:ProductId`
     - Method: POST
     - Parameters: Product Id as params
-    - Responses
+    - Response
         - 201 (Ok): `{ msg: "particular Product has been removed", GetByID }`
         - 401 (Token missing): `{"msg":"token must be needed for generating tickets... go for login or signup"}`
          - 400 (missing or Invalid credentails): `{ errors: errors.array() }`
@@ -112,7 +112,7 @@
         updated data
     }
     ```
-    - Reaponses
+    - Response
         - 201 (Ok): `{ msg: "particular Product has been updated", GetByID }`
         - 401 (Token missing): `{"msg":"token must be needed for generating tickets... go for login or signup"}`
          - 400 (missing or Invalid credentails): `{ errors: errors.array() }`
@@ -127,7 +127,7 @@
         CartId: Id (required),
     }
     ```
-    - Reaponses
+    - Response
         - 201 (Ok): `{"msg":"order has been placed"}`
         - 401 (Token missing): `{"msg":"token must be needed for generating tickets... go for login or signup"}`
          - 400 (missing or Invalid credentails): `{ errors: errors.array() }`
@@ -137,7 +137,7 @@
   - URL: `https://cloudy-nightgown.cyclic.app/Order/AllHistory`
     - Method: POST
     - Parameters:None
-    - Reaponses
+    - Response
         - 200 (Ok): `{ All Cart Data }`
         - 401 (Token missing): `{"msg":"token must be needed for generating tickets... go for login or signup"}`
          - 400 (missing or Invalid credentails): `{ errors: errors.array() }`
@@ -148,7 +148,7 @@
     - Method: Get
     - Parameters:None
 
-    - Reaponses
+    - Response
         - 201 (Ok): `{User Order history }`
         - 401 (Token missing): `{"msg":"token must be needed for generating tickets... go for login or signup"}`
          - 400 (missing or Invalid credentails): `{ errors: errors.array() }`
@@ -165,7 +165,7 @@
     productid: Id (required)
     ```
 
-    - Reaponses
+    - Response
         - 201 (Ok): `{ msg: "product has been added in cart",CartProduct }`
         - 204 (Already exist): `{"msg":"product already exist in your cart"}`
         - 401 (Token missing): `{"msg":"token must be needed for generating tickets... go for login or signup"}`
@@ -182,7 +182,7 @@
     cartID :id (required)
     ```
 
-    - Reaponses
+    - Response
         - 204 (Ok): `{ msg: "product has been removed from cart" }`
         - 401 (Token missing): `{"msg":"token must be needed for generating tickets... go for login or signup"}`
          - 400 (missing or Invalid credentails): `{ errors: errors.array() }`
@@ -197,7 +197,7 @@
        cartID :id (required)
       ```
 
-    - Reaponses
+    - Response
         - 204 (Ok): `{ msg: "product has been updated in cart", UpdateCart }`
         - 401 (Token missing): `{"msg":"token must be needed for generating tickets... go for login or signup"}`
          - 400 (missing or Invalid credentails): `{ errors: errors.array() }`
@@ -213,7 +213,7 @@
        cartID :id (required)
       ```
 
-    - Reaponses
+    - Response
         - 200 (Ok): `{Cart Products }`
         - 401 (Token missing): `{"msg":"token must be needed for generating tickets... go for login or signup"}`
          - 400 (missing or Invalid credentails): `{ errors: errors.array() }`
@@ -230,7 +230,7 @@
        category :string (required)
       ```
 
-    - Reaponses
+    - Response
         - 200 (Ok): `{"msg":"category already exist"}`
         - 201(ok): `{"msg":"Category has been added"}`
         - 401 (Token missing): `{"msg":"token must be needed for generating tickets... go for login or signup"}`
@@ -244,7 +244,7 @@
     - Method: Get
     - Parameters:None
 
-    - Reaponses
+    - Response
         - 200 (Ok): `{Available Categories}`
         - 401 (Token missing): `{"msg":"token must be needed for generating tickets... go for login or signup"}`
          - 400 (missing or Invalid credentails): `{ errors: errors.array() }`
@@ -261,7 +261,7 @@
     - Parameters: {
         id:userid (required) as params
     }
-       - Reaponses
+       - Response
         - 200 (Ok): `{"msg":"user has been blocked",blockUSer}`
         - 401 (Token missing): `{"msg":"token must be needed for generating tickets... go for login or signup"}`
          - 400 (missing or Invalid credentails): `{ errors: errors.array() }`
@@ -271,7 +271,7 @@
     - URL: `https://cloudy-nightgown.cyclic.app/admin//user/delete/:userId`
     - Method: DELETE
     - Parameters: userId as params
-    - Responses
+    - Response
         - 204 (Ok): `{"msg":"user has been deleted"}`
         - 401 (Token missing): `{"msg":"token must be needed for generating tickets... go for login or signup"}`
          - 400 (missing or Invalid credentails): `{ errors: errors.array() }`
@@ -281,7 +281,7 @@
     - URL: `https://cloudy-nightgown.cyclic.app/admin/product/delete/:productId`
     - Method: GET
     - Parameters: none
-   - Responses
+   - Response
         - 204 (Ok): `{"msg":"product has been deleted"}`
         - 401 (Token missing): `{"msg":"token must be needed for generating tickets... go for login or signup"}`
          - 400 (missing or Invalid credentails): `{ errors: errors.array() }`
