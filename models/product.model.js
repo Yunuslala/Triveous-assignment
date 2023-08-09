@@ -19,7 +19,15 @@ const ProductSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
     required: true,
+  },
+  imageUrl:{
+    type:String,
+  },
+  isAuthorize:{
+    type:Boolean,
+    default:false
   }
+
 });
 ProductSchema.index({ category: 1 });
 const ProductMOdel = mongoose.model("products",ProductSchema );

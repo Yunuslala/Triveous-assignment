@@ -8,11 +8,18 @@ const {CartRouter}=require("./routes/cart.route");
 const {AdminRouter}=require("./routes/Admin.route")
 const {OrderRoute}=require("./routes/order.route");
 require("dotenv").config();
+const path=require("path")
 app.use(express.json());
 const rateLimit = require('express-rate-limit');
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUI=require("swagger-ui-express");
+const {Authorizejob}=require("./utils/cron-job")
 
+Authorizejob.start()
+
+app.get("/",(req,res)=>{
+  res.send("server is running")
+})
 const userLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, 
   max: 100, // Maximum requests per IP in the specified window
@@ -21,7 +28,7 @@ const userLimiter = rateLimit({
 
 const categoryLimiter = rateLimit({
   windowMs: 10 * 60 * 1000, 
-  max: 100, 
+  max: 10, 
   message: 'Too many requests from this IP for Category routes, please try again later.',
 });
 
@@ -50,6 +57,8 @@ const adminLimiter = rateLimit({
 });
 
 
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use("/User",userLimiter,UserRoute);
 app.use("/category",categoryLimiter,categoryRoute);
 app.use("/Product",productLimiter,ProductRoute);

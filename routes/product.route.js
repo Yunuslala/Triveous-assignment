@@ -13,18 +13,19 @@ const {
   AdminAuthorization,
 } = require("../middlewares/authorization");
 const { body, validationResult, check } = require("express-validator");
-
+const {upload}=require("../utils/multer")
 ProductRoute.use(Authentication);
 
 ProductRoute.post(
   "/post",
+  upload.single("image"),
   [
     body("title").notEmpty().withMessage("title is required"),
     body("category").notEmpty().withMessage("category is required"),
     body("description").notEmpty().withMessage("description is required"),
     body("price").isInt().withMessage("price is required"),
   ],
-  VendorAuthorization,
+
   ProductAdd
 );
 ProductRoute.get("/get", AllProducts);

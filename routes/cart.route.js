@@ -10,12 +10,16 @@ const { body, validationResult,check } = require("express-validator");
 
 const { Authentication } = require("../middlewares/authentication");
 CartRouter.use(Authentication);
+
+
+
 CartRouter.post(
   "/Post",
 body('productId').exists().withMessage('ProductId is required'),
   
   AddToCart
 );
+
 CartRouter.post(
   "/remove/:id",
   check("id")
@@ -25,6 +29,8 @@ CartRouter.post(
     .withMessage("id must be a string"),
   RemoveFromCart
 );
+
+
 CartRouter.patch("/update",
 check("id")
     .exists()
@@ -38,3 +44,5 @@ CartRouter.get("/get", GetCartProducts);
 module.exports = {
   CartRouter,
 };
+
+

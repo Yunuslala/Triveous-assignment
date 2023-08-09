@@ -1,18 +1,27 @@
 const { ProductMOdel } = require("../models/product.model");
 const { body, validationResult } = require("express-validator");
-
+const {upload,storage}=require("../utils/multer");
+require('dotenv').config()
+const multer = require("multer");
 const ProductAdd = async (req, res) => {
   try {
     const { title, category, description, price } = req.body;
+    const configPort=`http://localhost:${process.env.port}`;
+    const fileUrl=req.file.path;
+    const newUrl=fileUrl.split("\\");
+    const configUpdatedFileUrl=`${configPort}/uploads/${newUrl.pop()}`;
+    console.log(configUpdatedFileUrl)
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).send({ errors: errors.array() });
     }
+    console.log({ title, category, description, price })
     const PostPrdoucts = new ProductMOdel({
       title,
       category,
       description,
       price,
+      imageUrl:configUpdatedFileUrl
     });
     await PostPrdoucts.save();
     res.status(201).send({ msg: "Product has been added" });

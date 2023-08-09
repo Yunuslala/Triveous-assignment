@@ -2,6 +2,8 @@ const { CartModel } = require("../models/cart.model");
 const { body, validationResult } = require("express-validator");
 
 
+
+
 const AddToCart = async (req, res) => {
   try {
     const errors = validationResult(req);
