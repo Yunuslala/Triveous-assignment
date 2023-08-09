@@ -35,8 +35,8 @@ const startUpdationJob=async()=>{
     }
     else{
         setTimeout(() => {
-            console.log('Task completed.'); // Set the flag when the task is completed
-            updationJob.stop() // Stop the cron job when the task is completed
+            console.log('Task completed.'); 
+            updationJob.stop()
           }, 0);
     }
 }
